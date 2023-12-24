@@ -46,16 +46,55 @@
         }
 
         #qna-background-image {
+          position: relative;
           width: 100%;
           height: 100vh; /* 화면 높이에 맞게 설정 */
-          background: url('img/qna/문항페이지_bg.jpg') center/cover no-repeat; /* 이미지를 가운데 정렬하고, 화면을 완전히 덮도록 설정 */
+          background: url('img/qna/E-I/1번.jpg')
+        }
+
+        #qna-answer-button1 {
+          position: absolute;
+          top: 51%;
+          left: 50%;
+          transform: translateX(-50%);
+          max-width: 100%;
+          height: auto;
+          cursor: pointer;
+        }
+        
+        #qna-answer-button2 {
+          position: absolute;
+          top: 68%;
+          left: 50%;
+          transform: translateX(-50%);
+          max-width: 100%;
+          height: auto;
+          cursor: pointer;
+        }
+
+        #result {
+          display: none; /* 기본적으로 숨김 처리 */
         }
 
         #result-background-image {
-          display: none; /* 기본적으로 숨김 처리 */
           width: 100%;
           height: 100vh; /* 화면 높이에 맞게 설정 */
-          background: url('img/result/결과페이지_bg.jpg') center/cover no-repeat; /* 이미지를 가운데 정렬하고, 화면을 완전히 덮도록 설정 */
+          background: url('img/result/INTP.jpg') center/cover no-repeat; /* 이미지를 가운데 정렬하고, 화면을 완전히 덮도록 설정 */
+        }
+
+        #result-button-container {
+          display: flex;
+          flex-direction: row;
+          justify-content: center;
+          align-items: center;
+          height: 100%;
+        }
+
+        #result-button-container img {
+          margin: 0 10px;
+          max-width: 20%;
+          height: auto;
+          cursor: pointer;
         }
       </style>
 </head>
@@ -71,18 +110,68 @@
         </div>
     </section>
     <section id="qna">
-        <div id="qna-background-image"></div>
+        <div>
+          <img id="qna-background-image" src="" alt="Qna Background Image">
+          <img id="qna-answer-button1" src="" alt="Qna Answer Button 1" onclick="changeQuestionAndAnswer()">
+          <img id="qna-answer-button2" src="" alt="Qna Answer Button 2" onclick="changeQuestionAndAnswer()">
+        </div>
     </section>
     <section id="result">
-        <div id="result-background-image"></div>
+        <div id="result-background-image">
+          <div style="position: absolute; top: 75%;">
+            <div id="result-button-container">
+              <img id="share" src="img/result/하단아이콘-1.jpg" alt="Share Button">
+              <img id="download" src="img/result/하단아이콘-2.jpg" alt="Download Button">
+              <img id="store" src="img/result/하단아이콘-3.jpg" alt="Store Button">
+            </div>  
+          </div>
+        </div>
     </section>
     <script>
       const main = document.querySelector("#main");
       const qna = document.querySelector("#qna");
+      const result = document.querySelector("#result");
+      const qnaBackground = document.querySelector("#qna-background-image");
+      const answerButton1 = document.querySelector("#qna-answer-button1");
+      const answerButton2 = document.querySelector("#qna-answer-button2");
+      
+      const qnaBackgroundList = ["img/qna/E-I/1번.jpg", "img/qna/E-I/2번.jpg", "img/qna/E-I/3번.jpg", "img/qna/N-S/4번.png", "img/qna/N-S/5번.png", "img/qna/N-S/6번.png", "img/qna/F-T/7번.png", "img/qna/F-T/8번.png", "img/qna/F-T/9번.png", "img/qna/F-T/10번.png", "img/qna/F-T/11번.png", "img/qna/P-J/12번.png", "img/qna/P-J/13번.png", "img/qna/P-J/14번.png"];
+      const answerButton1List = ["img/qna/E-I/1번-E.png", "img/qna/E-I/2번-I.png", "img/qna/E-I/3번-E.png", "img/qna/N-S/4번-N.png", "img/qna/N-S/5번-S.png", "img/qna/N-S/6번-N.png", "img/qna/F-T/7번-F.png", "img/qna/F-T/8번-T.png", "img/qna/F-T/9번-F.png", "img/qna/F-T/10번-T.png", "img/qna/F-T/11번-F.png", "img/qna/P-J/12번-J.png", "img/qna/P-J/13번-P.png", "img/qna/P-J/14번-J.png"];
+      const answerButton2List = ["img/qna/E-I/1번-I.png", "img/qna/E-I/2번-E.png", "img/qna/E-I/3번-I.png", "img/qna/N-S/4번-S.png", "img/qna/N-S/5번-N.png", "img/qna/N-S/6번-S.png", "img/qna/F-T/7번-T.png", "img/qna/F-T/8번-F.png", "img/qna/F-T/9번-T.png", "img/qna/F-T/10번-F.png", "img/qna/F-T/11번-T.png", "img/qna/P-J/12번-P.png", "img/qna/P-J/13번-J.png", "img/qna/P-J/14번-P.png"];
+
+      let i = 0;
+
+      let currentQnaImage = qnaBackgroundList[i];
+      let currentAnswerButton1Image = answerButton1List[i];
+      let currentAnswerButton2Image = answerButton2List[i];
+
+      qnaBackground.src = currentQnaImage;
+      answerButton1.src = currentAnswerButton1Image;
+      answerButton2.src = currentAnswerButton2Image;
 
       function start() {
           main.style.display = "none";
           qna.style.display = "block";
+      }
+
+      function changeQuestionAndAnswer() {
+        i++;
+        if (i == 14) {
+          finish();
+        }
+
+        currentQnaImage = qnaBackgroundList[i];
+        currentAnswerButton1Image = answerButton1List[i];
+        currentAnswerButton2Image = answerButton2List[i];
+
+        qnaBackground.src = currentQnaImage;
+        answerButton1.src = currentAnswerButton1Image;
+        answerButton2.src = currentAnswerButton2Image;
+      }
+
+      function finish() {
+        qna.style.display = "none";
+        result.style.display = "block";
       }
     </script>
 </body>
