@@ -2,7 +2,7 @@
 <html lang="ko">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=1179, initial-scale=1.0">
     <title>쀼니의 선물가게 MBTI</title>
     <style>
         body {
@@ -15,7 +15,7 @@
           position: relative;
           width: 100%;
           height: 100vh; /* 화면 높이에 맞게 설정 */
-          background: url('img/start/시작페이지_bg.jpg') center/cover no-repeat; /* 이미지를 가운데 정렬하고, 화면을 완전히 덮도록 설정 */
+          background: url('img/start/시작페이지_bg.jpg') center/contain no-repeat, white;
         }
 
         #title-container,
@@ -49,7 +49,14 @@
           position: relative;
           width: 100%;
           height: 100vh; /* 화면 높이에 맞게 설정 */
-          background: url('img/qna/E-I/1번.jpg')
+          background: url('img/qna/E-I/1번.jpg') center/contain no-repeat, white;
+        }
+
+        #default-background-image {
+          position: relative;
+          width: 100%;
+          height: 100vh;
+          background: url('img/배경화면.jpg') center/contain no-repeat, white;
         }
 
         #qna-answer-button1 {
@@ -77,9 +84,12 @@
         }
 
         #result-background-image {
+          display: flex;
+          justify-content: center;
+          align-items: center;
           width: 100%;
           height: 100vh; /* 화면 높이에 맞게 설정 */
-          background: url('img/result/INTP.jpg') center/cover no-repeat; /* 이미지를 가운데 정렬하고, 화면을 완전히 덮도록 설정 */
+          background: url('img/result/INTP.jpg') center/contain no-repeat white;
         }
 
         #result-button-container {
@@ -88,6 +98,7 @@
           justify-content: center;
           align-items: center;
           height: 100%;
+          background: center/contain no-repeat;
         }
 
         #result-button-container img {
@@ -110,20 +121,19 @@
         </div>
     </section>
     <section id="qna">
-        <div>
-          <img id="qna-background-image" src="" alt="Qna Background Image">
-          <img id="qna-answer-button1" src="" alt="Qna Answer Button 1" onclick="changeQuestionAndAnswer()">
-          <img id="qna-answer-button2" src="" alt="Qna Answer Button 2" onclick="changeQuestionAndAnswer()">
+        <div id="qna-background-image" alt="Qna background image">
+          <img id="qna-answer-button1" src="img/qna/E-I/1번-E.png" alt="Qna Answer Button 1" onclick="changeQuestionAndAnswer()">
+          <img id="qna-answer-button2" src="img/qna/E-I/1번-I.png" alt="Qna Answer Button 2" onclick="changeQuestionAndAnswer()">
         </div>
     </section>
     <section id="result">
         <div id="result-background-image">
-          <div style="position: absolute; top: 85%;">
+          <div style="position: absolute; top: 80%;">
             <div id="result-button-container">
-              <img id="share" src="img/result/하단아이콘-1.jpg" alt="Share Button">
-              <img id="download" src="img/result/하단아이콘-2.jpg" alt="Download Button">
-              <img id="store" src="img/result/하단아이콘-3.jpg" alt="Store Button">
-            </div>  
+                <img id="share" src="img/result/하단아이콘-1.jpg" alt="Share Button">
+                <img id="download" src="img/result/하단아이콘-2.jpg" alt="Download Button">
+                <img id="store" src="img/result/하단아이콘-3.jpg" alt="Store Button">
+            </div>
           </div>
         </div>
     </section>
@@ -145,7 +155,7 @@
       let currentAnswerButton1Image = answerButton1List[i];
       let currentAnswerButton2Image = answerButton2List[i];
 
-      qnaBackground.src = currentQnaImage;
+      qnaBackgroundImage.style.backgroundImage = `url(${currentQnaImage})`;
       answerButton1.src = currentAnswerButton1Image;
       answerButton2.src = currentAnswerButton2Image;
 
@@ -158,6 +168,7 @@
         i++;
         if (i == 14) {
           finish();
+          return;
         }
 
         currentQnaImage = qnaBackgroundList[i];
