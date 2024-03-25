@@ -118,7 +118,6 @@
         justify-content: center;
         align-items: center;
         height: 200px;
-        margin-bottom: 100px;
       }
 
       #result-button-container img {
@@ -204,11 +203,14 @@
       const qnaBackground = document.querySelector("#qna-background-image");
       const answerButton1 = document.querySelector("#qna-answer-button1");
       const answerButton2 = document.querySelector("#qna-answer-button2");
+      // const resultImageUrl = getComputedStyle(document.getElementById('result-background-image')).backgroundImage;
+      // const imageUrl = backgroundImage.replace(/url\(['"]?([^'"]*)['"]?\)/, '$1');
+      // document.getElementById('download').parentElement.href = imageUrl;s
 
       const qnaBackgroundList = [
-        "img/qna/E-I/1번.jpg",
-        "img/qna/E-I/2번.jpg",
-        "img/qna/E-I/3번.jpg",
+        "img/qna/E-I/1번.png",
+        "img/qna/E-I/2번.png",
+        "img/qna/E-I/3번.png",
         "img/qna/N-S/4번.png",
         "img/qna/N-S/5번.png",
         "img/qna/N-S/6번.png",
@@ -280,13 +282,13 @@
         currentAnswerButton1Image = answerButton1List[i];
         currentAnswerButton2Image = answerButton2List[i];
 
-        qnaBackground.src = currentQnaImage;
+        qnaBackground.style.backgroundImage = `url(${currentQnaImage})`;
         answerButton1.src = currentAnswerButton1Image;
         answerButton2.src = currentAnswerButton2Image;
       }
 
       function finish() {
-        qna.style.display = "none";
+        qnaBackground.style.display = "none";
         result.style.display = "block";
       }
     </script>
