@@ -53,12 +53,12 @@
         background: url("img/qna/E-I/1번.png") center/contain no-repeat, white;
       }
 
-      #default-background-image {
+      /* #default-background-image {
         position: relative;
         width: 100%;
         height: 100vh;
         background: url("img/배경화면.jpg") center/contain no-repeat, white;
-      }
+      } */
 
       #default-container {
         display: flex;
@@ -121,7 +121,7 @@
       }
 
       #result-button-container img {
-        display:block;
+        display: block;
         margin: auto 20px;
         height: 100px;
         width: 100px;
@@ -155,20 +155,19 @@
           id="qna-answer-button1"
           src="img/qna/E-I/1번-E.png"
           alt="Qna Answer Button 1"
-          onclick="changeQuestionAndAnswer()"
+          onclick="changeQuestionAndAnswer1()"
         />
         <img
           id="qna-answer-button2"
           src="img/qna/E-I/1번-I.png"
           alt="Qna Answer Button 2"
-          onclick="changeQuestionAndAnswer()"
+          onclick="changeQuestionAndAnswer2()"
         />
       </div>
     </section>
     <section id="result">
       <div id="default-container">
-        <div id="result-background-image">
-        </div>
+        <div id="result-background-image"></div>
         <div style="position: absolute; top: 75%">
           <div id="result-button-container">
             <a>
@@ -203,6 +202,9 @@
       const qnaBackground = document.querySelector("#qna-background-image");
       const answerButton1 = document.querySelector("#qna-answer-button1");
       const answerButton2 = document.querySelector("#qna-answer-button2");
+      const resultBackgroundImage = document.querySelector(
+        "#result-background-image"
+      );
       // const resultImageUrl = getComputedStyle(document.getElementById('result-background-image')).backgroundImage;
       // const imageUrl = backgroundImage.replace(/url\(['"]?([^'"]*)['"]?\)/, '$1');
       // document.getElementById('download').parentElement.href = imageUrl;s
@@ -257,6 +259,15 @@
       ];
 
       let i = 0;
+      let E = 0;
+      let I = 0;
+      let F = 0;
+      let T = 0;
+      let N = 0;
+      let S = 0;
+      let P = 0;
+      let J = 0;
+      let res = "";
 
       let currentQnaImage = qnaBackgroundList[i];
       let currentAnswerButton1Image = answerButton1List[i];
@@ -271,8 +282,84 @@
         qna.style.display = "block";
       }
 
-      function changeQuestionAndAnswer() {
+      function changeQuestionAndAnswer1() {
         i++;
+        if (1 <= i && i <= 3) {
+          if (i % 2 == 1) {
+            E++;
+          } else {
+            I++;
+          }
+          console.log("E:" + E);
+          console.log("I:" + I);
+        } else if (4 <= i && i <= 6) {
+          if (i % 2 == 0) {
+            N++;
+          } else {
+            S++;
+          }
+          console.log("N:" + N);
+          console.log("S:" + S);
+        } else if (7 <= i && i <= 11) {
+          if (i % 2 == 1) {
+            F++;
+          } else {
+            T++;
+          }
+          console.log("F:" + F);
+          console.log("T:" + T);
+        } else {
+          if (i % 2 == 0) {
+            J++;
+          } else {
+            P++;
+          }
+          console.log("J:" + J);
+          console.log("P:" + P);
+        }
+
+        if (i == 14) {
+          finish();
+          return;
+        }
+
+        currentQnaImage = qnaBackgroundList[i];
+        currentAnswerButton1Image = answerButton1List[i];
+        currentAnswerButton2Image = answerButton2List[i];
+
+        qnaBackground.style.backgroundImage = `url(${currentQnaImage})`;
+        answerButton1.src = currentAnswerButton1Image;
+        answerButton2.src = currentAnswerButton2Image;
+      }
+
+      function changeQuestionAndAnswer2() {
+        i++;
+        if (1 <= i && i <= 3) {
+          if (i % 2 == 0) {
+            E++;
+          } else {
+            I++;
+          }
+        } else if (4 <= i && i <= 6) {
+          if (i % 2 == 1) {
+            N++;
+          } else {
+            S++;
+          }
+        } else if (7 <= i && i <= 11) {
+          if (i % 2 == 0) {
+            F++;
+          } else {
+            T++;
+          }
+        } else {
+          if (i % 2 == 1) {
+            J++;
+          } else {
+            P++;
+          }
+        }
+
         if (i == 14) {
           finish();
           return;
@@ -288,6 +375,28 @@
       }
 
       function finish() {
+        if (E < I) {
+          res += "I";
+        } else {
+          res += "E";
+        }
+        if (N < S) {
+          res += "S";
+        } else {
+          res += "N";
+        }
+        if (F < T) {
+          res += "T";
+        } else {
+          res += "F";
+        }
+        if (P < J) {
+          res += "J";
+        } else {
+          res += "P";
+        }
+        console.log(res);
+        resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
         qnaBackground.style.display = "none";
         result.style.display = "block";
       }
