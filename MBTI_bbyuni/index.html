@@ -177,7 +177,7 @@
                 alt="Share Button"
               />
             </a>
-            <a href="img/result/INTP.jpg" download>
+            <a id="download" download>
               <img
                 id="download"
                 src="img/result/하단아이콘-2.jpg"
@@ -397,6 +397,7 @@
         }
         console.log(res);
         resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+        document.getElementById("download").href = `img/result/${res}.jpg`;
         qnaBackground.style.display = "none";
         result.style.display = "block";
       }
