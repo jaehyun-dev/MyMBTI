@@ -60,6 +60,25 @@ const answerButton2List = [
   "img/qna/P-J/14번-P.png",
 ];
 
+const resultList = [
+  "img/result/ENFJ.jpg",
+  "img/result/ENFP.jpg",
+  "img/result/ENTJ.jpg",
+  "img/result/ENTP.jpg",
+  "img/result/ESFJ.jpg",
+  "img/result/ESFP.jpg",
+  "img/result/ESTJ.jpg",
+  "img/result/ESTP.jpg",
+  "img/result/INFJ.jpg",
+  "img/result/INFP.jpg",
+  "img/result/INTJ.jpg",
+  "img/result/INTP.jpg",
+  "img/result/ISFJ.jpg",
+  "img/result/ISFP.jpg",
+  "img/result/ISTJ.jpg",
+  "img/result/ISTP.jpg"
+]
+
 let i = 0;
 let E = 0;
 let I = 0;
@@ -236,4 +255,5 @@ function preloadImages(imageUrls) {
 
 window.addEventListener('load', function() {
   preloadImages(qnaBackgroundList);
+  preloadImages(resultList);
 });
