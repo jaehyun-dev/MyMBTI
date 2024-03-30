@@ -1,6 +1,8 @@
 window.addEventListener('load', function() {
   preloadImages(qnaBackgroundList);
   preloadImages(resultList);
+  preloadImages(answerButton1List);
+  preloadImages(answerButton2List);
 });
 
 const main = document.querySelector("#main");
