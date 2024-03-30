@@ -226,3 +226,14 @@ function shareLink() {
     alert('링크를 복사했습니다: ' + currentUrl);
   }
 }
+
+function preloadImages(imageUrls) {
+  for (let i = 0; i < imageUrls.length; i++) {
+    const img = new Image();
+    img.src = imageUrls[i];
+  }
+}
+
+window.addEventListener('load', function() {
+  preloadImages(qnaBackgroundList);
+});
