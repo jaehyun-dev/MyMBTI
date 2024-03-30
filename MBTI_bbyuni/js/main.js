@@ -1,3 +1,8 @@
+window.addEventListener('load', function() {
+  preloadImages(qnaBackgroundList);
+  preloadImages(resultList);
+});
+
 const main = document.querySelector("#main");
 const qna = document.querySelector("#qna");
 const result = document.querySelector("#result");
@@ -252,8 +257,3 @@ function preloadImages(imageUrls) {
     img.src = imageUrls[i];
   }
 }
-
-window.addEventListener('load', function() {
-  preloadImages(qnaBackgroundList);
-  preloadImages(resultList);
-});
