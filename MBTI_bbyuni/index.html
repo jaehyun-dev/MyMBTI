@@ -4,10 +4,6 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta property="og:image" content="img/icon_store_act(2).png" />
-    <meta
-      http-equiv="Content-Security-Policy"
-      content="frame-src https://ads-partners.coupang.com"
-    />
     <title>쀼니의 선물가게 테스트</title>
     <style>
       body {
@@ -133,25 +129,9 @@
         object-fit: cover;
       }
 
-      #coupang-ad {
-        width: 100%;
-      }
     </style>
   </head>
   <body>
-    <section id="coupang-ad">
-      <script src="https://ads-partners.coupang.com/g.js"></script>
-      <script>
-        new PartnersCoupang.G({
-          id: 811015,
-          template: "carousel",
-          trackingCode: "AF1796946",
-          width: 340,
-          height: 70,
-          tsource: "",
-        });
-      </script>
-    </section>
     <section id="main">
       <div id="start-background-image">
         <div id="start-button-container" onclick="start()">
