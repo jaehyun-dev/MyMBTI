@@ -224,10 +224,34 @@ function finish() {
     res += "P";
   }
   console.log(res);
-  resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
-  document.getElementById("download").href = `img/result/${res}.jpg`;
+  
+  // 광고 이미지 설정
+  resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`;
   qnaBackground.style.display = "none";
   result.style.display = "block";
+  
+  // 버튼 컨테이너의 부모 div를 숨김
+  document.querySelector("#result-button-container").parentElement.style.display = "none";
+
+  let hasClicked = false;
+  
+  resultBackgroundImage.addEventListener('click', function(e) {
+    if (!hasClicked) {
+      e.preventDefault();
+      hasClicked = true;
+      
+      // 새 창에서 광고 링크 열기
+      window.open("https://link.coupang.com/a/bUgInP", "_blank");
+      
+      // 결과 이미지로 변경하고 버튼들 표시
+      setTimeout(() => {
+        resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+        document.getElementById("download").href = `img/result/${res}.jpg`;
+        // 버튼 컨테이너의 부모 div를 다시 표시
+        document.querySelector("#result-button-container").parentElement.style.display = "block";
+      }, 100);
+    }
+  });
 }
 
 function shareLink() {
