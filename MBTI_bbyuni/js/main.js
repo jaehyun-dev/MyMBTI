@@ -11,12 +11,7 @@ const result = document.querySelector("#result");
 const qnaBackground = document.querySelector("#qna-background-image");
 const answerButton1 = document.querySelector("#qna-answer-button1");
 const answerButton2 = document.querySelector("#qna-answer-button2");
-const resultBackgroundImage = document.querySelector(
-  "#result-background-image"
-);
-// const resultImageUrl = getComputedStyle(document.getElementById('result-background-image')).backgroundImage;
-// const imageUrl = backgroundImage.replace(/url\(['"]?([^'"]*)['"]?\)/, '$1');
-// document.getElementById('download').parentElement.href = imageUrl;s
+const resultBackgroundImage = document.querySelector("#result-background-image");
 
 const qnaBackgroundList = [
   "img/qna/E-I/1번.png",
@@ -34,6 +29,7 @@ const qnaBackgroundList = [
   "img/qna/P-J/13번.png",
   "img/qna/P-J/14번.png",
 ];
+
 const answerButton1List = [
   "img/qna/E-I/1번-E.png",
   "img/qna/E-I/2번-I.png",
@@ -50,6 +46,7 @@ const answerButton1List = [
   "img/qna/P-J/13번-P.png",
   "img/qna/P-J/14번-J.png",
 ];
+
 const answerButton2List = [
   "img/qna/E-I/1번-I.png",
   "img/qna/E-I/2번-E.png",
@@ -68,6 +65,7 @@ const answerButton2List = [
 ];
 
 const resultList = [
+  "img/result/광고보기.jpg",  // 광고 이미지 추가
   "img/result/ENFJ.jpg",
   "img/result/ENFP.jpg",
   "img/result/ENTJ.jpg",
@@ -84,7 +82,7 @@ const resultList = [
   "img/result/ISFP.jpg",
   "img/result/ISTJ.jpg",
   "img/result/ISTP.jpg"
-]
+];
 
 let i = 0;
 let E = 0;
@@ -225,48 +223,55 @@ function finish() {
   }
   console.log(res);
 
-   // 상태를 로컬 스토리지에 저장
   localStorage.setItem('result', res);
+  localStorage.setItem('showAd', 'true');
   
-  // 광고 이미지 설정
+  showAdvertisement();
+}
+
+function showAdvertisement() {
   resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`;
   qnaBackground.style.display = "none";
   result.style.display = "block";
-  
-  // 버튼 컨테이너의 부모 div를 숨김
   document.querySelector("#result-button-container").parentElement.style.display = "none";
 
-  let hasClicked = false;
-  
-  resultBackgroundImage.addEventListener('click', function(e) {
-    if (!hasClicked) {
+  if (!resultBackgroundImage.hasAttribute('data-has-click-listener')) {
+    resultBackgroundImage.setAttribute('data-has-click-listener', 'true');
+    
+    resultBackgroundImage.addEventListener('click', function handleAdClick(e) {
       e.preventDefault();
-      hasClicked = true;
       
-      // 새 창에서 광고 링크 열기
       window.open("https://link.coupang.com/a/bUgInP", "_blank");
       
-      // 결과 이미지로 변경하고 버튼들 표시
       setTimeout(() => {
         resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
         document.getElementById("download").href = `img/result/${res}.jpg`;
-        // 버튼 컨테이너의 부모 div를 다시 표시
         document.querySelector("#result-button-container").parentElement.style.display = "block";
+        
+        localStorage.setItem('showAd', 'false');
+        
+        resultBackgroundImage.removeEventListener('click', handleAdClick);
+        resultBackgroundImage.removeAttribute('data-has-click-listener');
       }, 100);
-    }
-  });
+    });
+  }
 }
 
-// 페이지 로드 시 로컬 스토리지에서 상태 복원
 window.addEventListener('load', function() {
   const savedResult = localStorage.getItem('result');
+  const showAd = localStorage.getItem('showAd');
+  
   if (savedResult) {
     res = savedResult;
-    resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
-    document.getElementById("download").href = `img/result/${res}.jpg`;
-    qnaBackground.style.display = "none";
-    result.style.display = "block";
-    document.querySelector("#result-button-container").parentElement.style.display = "block";
+    if (showAd === 'true') {
+      showAdvertisement();
+    } else {
+      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+      document.getElementById("download").href = `img/result/${res}.jpg`;
+      qnaBackground.style.display = "none";
+      result.style.display = "block";
+      document.querySelector("#result-button-container").parentElement.style.display = "block";
+    }
   }
 });
 
