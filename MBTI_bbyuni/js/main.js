@@ -3,19 +3,6 @@ window.addEventListener('load', function() {
   preloadImages(resultList);
   preloadImages(answerButton1List);
   preloadImages(answerButton2List);
-
-  // 페이지 로드 시 상태 복원
-  const savedResult = sessionStorage.getItem('result') || localStorage.getItem('result');
-  const showAd = sessionStorage.getItem('showAd') === 'true' || localStorage.getItem('showAd') === 'true';
-
-  if (savedResult) {
-    res = savedResult;
-    if (showAd) {
-      showAdvertisement();
-    } else {
-      showResult();
-    }
-  }
 });
 
 const main = document.querySelector("#main");
@@ -258,27 +245,26 @@ function showAdvertisement() {
 
   let hasClicked = false;
   
-  resultBackgroundImage.addEventListener('click', function(e) {
+  resultBackgroundImage.addEventListener('click', async function(e) {
     if (!hasClicked) {
       e.preventDefault();
       hasClicked = true;
 
-      // 상태 업데이트: 광고를 이미 보여줬다고 기록
+      // 결과 이미지로 먼저 변경
+      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+      document.getElementById("download").href = `img/result/${res}.jpg`;
+      document.querySelector("#result-button-container").parentElement.style.display = "block";
+      
+      // 상태 업데이트
       sessionStorage.setItem('showAd', 'false');
       localStorage.setItem('showAd', 'false');
 
-      // 쿠팡 링크로 이동
-      window.location.href = "https://link.coupang.com/a/bUgInP";
+      // 약간의 지연 후 광고 링크 열기
+      setTimeout(() => {
+        window.open("https://link.coupang.com/a/bUgInP", "_blank");
+      }, 300);
     }
   });
-}
-
-function showResult() {
-  resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
-  document.getElementById("download").href = `img/result/${res}.jpg`;
-  document.querySelector("#result-button-container").parentElement.style.display = "block";
-  qnaBackground.style.display = "none";
-  result.style.display = "block";
 }
 
 function shareLink() {
