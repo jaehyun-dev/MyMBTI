@@ -254,6 +254,19 @@ function finish() {
   });
 }
 
+// 페이지 로드 시 로컬 스토리지에서 상태 복원
+window.addEventListener('load', function() {
+  const savedResult = localStorage.getItem('result');
+  if (savedResult) {
+    res = savedResult;
+    resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+    document.getElementById("download").href = `img/result/${res}.jpg`;
+    qnaBackground.style.display = "none";
+    result.style.display = "block";
+    document.querySelector("#result-button-container").parentElement.style.display = "block";
+  }
+});
+
 function shareLink() {
   const currentUrl = window.location.href;
 
