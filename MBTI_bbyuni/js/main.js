@@ -203,7 +203,6 @@ function changeQuestionAndAnswer2() {
 function finish() {
   if (E < I) {
     res += "I";
-@@ -222,85 +20,47 @@
     res += "P";
   }
   console.log(res);
