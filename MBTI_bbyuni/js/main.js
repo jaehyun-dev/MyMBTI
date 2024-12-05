@@ -203,6 +203,22 @@ function changeQuestionAndAnswer2() {
 function finish() {
   if (E < I) {
     res += "I";
+  } else {
+    res += "E";
+  }
+  if (N < S) {
+    res += "S";
+  } else {
+    res += "N";
+  }
+  if (F < T) {
+    res += "T";
+  } else {
+    res += "F";
+  }
+  if (P < J) {
+    res += "J";
+  } else {
     res += "P";
   }
   console.log(res);
@@ -211,6 +227,7 @@ function finish() {
   const url = new URL(window.location.href);
   url.searchParams.set('result', res);
   window.history.replaceState({}, '', url);
+
   // 세션스토리지와 로컬스토리지 모두 사용
   sessionStorage.setItem('result', res);
   localStorage.setItem('result', res);
