@@ -125,6 +125,7 @@ answerButton2.src = currentAnswerButton2Image;
 function start() {
   main.style.display = "none";
   qna.style.display = "block";
+  result.style.display = "none"; 
   // 초기화
   i = 0;
   E = 0;
@@ -338,35 +339,14 @@ function preloadImages(imageUrls) {
 }
 
 function restart() {
-  // 모든 상태 초기화
-  i = 0;
-  E = 0;
-  I = 0;
-  F = 0;
-  T = 0;
-  N = 0;
-  S = 0;
-  P = 0;
-  J = 0;
-  res = "";
-  
   // 세션스토리지 초기화
   sessionStorage.clear();
   localStorage.clear();
   
   // URL 파라미터 제거
   window.history.replaceState({}, '', window.location.pathname);
-  
-  // 화면 상태 초기화
+
   main.style.display = "block";
   qna.style.display = "none";
   result.style.display = "none";
-  
-  // 첫 번째 질문 이미지로 초기화
-  currentQnaImage = qnaBackgroundList[0];
-  currentAnswerButton1Image = answerButton1List[0];
-  currentAnswerButton2Image = answerButton2List[0];
-  qnaBackground.style.backgroundImage = `url(${currentQnaImage})`;
-  answerButton1.src = currentAnswerButton1Image;
-  answerButton2.src = currentAnswerButton2Image;
 }
