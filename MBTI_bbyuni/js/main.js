@@ -224,6 +224,9 @@ function finish() {
     res += "P";
   }
   console.log(res);
+
+   // 상태를 로컬 스토리지에 저장
+  localStorage.setItem('result', res);
   
   // 광고 이미지 설정
   resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`;
