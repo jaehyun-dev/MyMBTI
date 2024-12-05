@@ -3,6 +3,25 @@ window.addEventListener('load', function() {
   preloadImages(resultList);
   preloadImages(answerButton1List);
   preloadImages(answerButton2List);
+
+  // URL에서 결과 파라미터 확인
+  const urlParams = new URLSearchParams(window.location.search);
+  const urlResult = urlParams.get('result');
+  
+  // 저장된 결과 확인
+  const savedResult = sessionStorage.getItem('result');
+  const showAd = sessionStorage.getItem('showAd') === 'true';
+
+  // 결과가 있으면 복원
+  if (savedResult) {
+    res = savedResult;
+    main.style.display = "none";
+    if (showAd) {
+      showAdvertisement();
+    } else {
+      showResult();
+    }
+  }
 });
 
 const main = document.querySelector("#main");
@@ -106,6 +125,23 @@ answerButton2.src = currentAnswerButton2Image;
 function start() {
   main.style.display = "none";
   qna.style.display = "block";
+  // 초기화
+  i = 0;
+  E = 0;
+  I = 0;
+  F = 0;
+  T = 0;
+  N = 0;
+  S = 0;
+  P = 0;
+  J = 0;
+  res = "";
+  currentQnaImage = qnaBackgroundList[i];
+  currentAnswerButton1Image = answerButton1List[i];
+  currentAnswerButton2Image = answerButton2List[i];
+  qnaBackground.style.backgroundImage = `url(${currentQnaImage})`;
+  answerButton1.src = currentAnswerButton1Image;
+  answerButton2.src = currentAnswerButton2Image;
 }
 
 function changeQuestionAndAnswer1() {
@@ -245,26 +281,30 @@ function showAdvertisement() {
 
   let hasClicked = false;
   
-  resultBackgroundImage.addEventListener('click', async function(e) {
+  resultBackgroundImage.addEventListener('click', function(e) {
     if (!hasClicked) {
       e.preventDefault();
       hasClicked = true;
 
-      // 결과 이미지로 먼저 변경
-      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
-      document.getElementById("download").href = `img/result/${res}.jpg`;
-      document.querySelector("#result-button-container").parentElement.style.display = "block";
-      
-      // 상태 업데이트
+      // 상태 업데이트: 광고를 이미 보여줬다고 기록
       sessionStorage.setItem('showAd', 'false');
       localStorage.setItem('showAd', 'false');
 
-      // 약간의 지연 후 광고 링크 열기
-      setTimeout(() => {
-        window.open("https://link.coupang.com/a/bUgInP", "_blank");
-      }, 300);
+      // 새 창에서 쿠팡 링크 열기
+      window.open("https://link.coupang.com/a/bUgInP", "_blank");
+
+      // 결과 이미지로 변경
+      showResult();
     }
   });
+}
+
+function showResult() {
+  resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+  document.getElementById("download").href = `img/result/${res}.jpg`;
+  document.querySelector("#result-button-container").parentElement.style.display = "block";
+  qnaBackground.style.display = "none";
+  result.style.display = "block";
 }
 
 function shareLink() {
