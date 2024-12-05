@@ -245,26 +245,27 @@ function showAdvertisement() {
 
   let hasClicked = false;
   
-  resultBackgroundImage.addEventListener('click', function(e) {
-  if (!hasClicked) {
-    e.preventDefault();
-    hasClicked = true;
+  resultBackgroundImage.addEventListener('click', async function(e) {
+    if (!hasClicked) {
+      e.preventDefault();
+      hasClicked = true;
 
-    // 상태 업데이트: 광고를 이미 보여줬다고 기록
-    sessionStorage.setItem('showAd', 'false');
+      // 결과 이미지로 먼저 변경
+      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+      document.getElementById("download").href = `img/result/${res}.jpg`;
+      document.querySelector("#result-button-container").parentElement.style.display = "block";
+      
+      // 상태 업데이트
+      sessionStorage.setItem('showAd', 'false');
+      localStorage.setItem('showAd', 'false');
 
-    // 히스토리 조작: 뒤로가기를 눌렀을 때 결과 페이지로 돌아오도록 설정
-    history.pushState({ page: "result" }, "", location.href);
-
-    // 광고 링크를 현재 창에서 열기
-    location.href = "https://link.coupang.com/a/bUgInP";
-
-    // 1초 후 결과 페이지 표시
-    setTimeout(() => {
-      showResult();
-    }, 1000);
-  }
-});
+      // 약간의 지연 후 광고 링크 열기
+      setTimeout(() => {
+        window.open("https://link.coupang.com/a/bUgInP", "_blank");
+      }, 300);
+    }
+  });
+}
 
 function shareLink() {
   const currentUrl = window.location.href;
