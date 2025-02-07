@@ -131,23 +131,19 @@
 
       #close-ad {
         position: absolute;
-        top: 15%;  /* 광고 이미지의 X 버튼 위치에 맞게 조정 */
+        top: 20%;  /* 기존보다 조금 더 아래로 이동 */
         left: 50%;
-        transform: translateX(140px); /* 중앙 정렬 후 오른쪽으로 이동 */
-        
+        transform: translateX(110px); /* 기존보다 왼쪽으로 이동 */
+    
         width: 40px;
         height: 40px;
-        background-color: rgba(0, 0, 0, 0.7);
-        color: white;
-        font-size: 18px;
-        font-weight: bold;
+        
+        background: none; /* 배경 투명 */
+        color: transparent; /* 글자 숨김 */
         border: none;
-        border-radius: 50%;
         cursor: pointer;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000; /* 최상단에 배치 */
+    
+        z-index: 1000;
       }
 
     </style>
