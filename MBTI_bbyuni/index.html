@@ -129,6 +129,25 @@
         object-fit: cover;
       }
 
+      #close-ad {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        width: 40px;
+        height: 40px;
+        background-color: rgba(0, 0, 0, 0.0);
+        color: white;
+        font-size: 18px;
+        font-weight: bold;
+        border: none;
+        border-radius: 50%;
+        cursor: pointer;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 1000; /* 버튼이 항상 최상단에 위치하도록 */
+      }
+
     </style>
   </head>
   <body>
@@ -161,7 +180,9 @@
     </section>
     <section id="result">
       <div id="default-container">
-        <div id="result-background-image"></div>
+        <div id="result-background-image">
+          <button id="close-ad"></button>
+        </div>
         <div style="position: absolute; top: 67%">
           <div id="result-button-container">
             <a>
