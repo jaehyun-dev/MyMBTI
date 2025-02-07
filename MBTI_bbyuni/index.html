@@ -131,11 +131,13 @@
 
       #close-ad {
         position: absolute;
-        top: 10px;
-        right: 10px;
+        top: 15%;  /* 광고 이미지의 X 버튼 위치에 맞게 조정 */
+        left: 50%;
+        transform: translateX(140px); /* 중앙 정렬 후 오른쪽으로 이동 */
+        
         width: 40px;
         height: 40px;
-        background-color: rgba(0, 0, 0, 0.0);
+        background-color: rgba(0, 0, 0, 0.7);
         color: white;
         font-size: 18px;
         font-weight: bold;
@@ -145,7 +147,7 @@
         display: flex;
         justify-content: center;
         align-items: center;
-        z-index: 1000; /* 버튼이 항상 최상단에 위치하도록 */
+        z-index: 1000; /* 최상단에 배치 */
       }
 
     </style>
