@@ -116,24 +116,32 @@ function changeQuestionAndAnswer1() {
     } else {
       I++;
     }
+    console.log("E:" + E);
+    console.log("I:" + I);
   } else if (4 <= i && i <= 6) {
     if (i % 2 == 0) {
       N++;
     } else {
       S++;
     }
+    console.log("N:" + N);
+    console.log("S:" + S);
   } else if (7 <= i && i <= 11) {
     if (i % 2 == 1) {
       F++;
     } else {
       T++;
     }
+    console.log("F:" + F);
+    console.log("T:" + T);
   } else {
     if (i % 2 == 0) {
       J++;
     } else {
       P++;
     }
+    console.log("J:" + J);
+    console.log("P:" + P);
   }
 
   if (i == 14) {
@@ -232,4 +240,59 @@ function finish() {
 function showAdvertisement() {
   resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`;
   qnaBackground.style.display = "none";
-  result.style.display = "block
+  result.style.display = "block";
+  document.querySelector("#result-button-container").parentElement.style.display = "none";
+
+  let hasClicked = false;
+  
+  resultBackgroundImage.addEventListener('click', async function(e) {
+    if (!hasClicked) {
+      e.preventDefault();
+      hasClicked = true;
+
+      // 결과 이미지로 먼저 변경
+      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
+      document.getElementById("download").href = `img/result/${res}.jpg`;
+      document.querySelector("#result-button-container").parentElement.style.display = "block";
+      
+      // 상태 업데이트
+      sessionStorage.setItem('showAd', 'false');
+      localStorage.setItem('showAd', 'false');
+
+      // 약간의 지연 후 광고 링크 열기
+      setTimeout(() => {
+        window.open("https://link.coupang.com/a/bUgInP", "_blank");
+      }, 300);
+    }
+  });
+}
+
+function shareLink() {
+  const currentUrl = window.location.href;
+
+  if (navigator.share) {
+    navigator.share({
+      title: document.title,
+      url: currentUrl
+    }).then(() => {
+      console.log('공유 성공');
+    }).catch((error) => {
+      console.log('공유 실패', error);
+    });
+  } else {
+    const urlInput = document.createElement('input');
+    urlInput.value = currentUrl;
+    document.body.appendChild(urlInput);
+    urlInput.select();
+    document.execCommand('copy');
+    document.body.removeChild(urlInput);
+    alert('링크를 복사했습니다: ' + currentUrl);
+  }
+}
+
+function preloadImages(imageUrls) {
+  for (let i = 0; i < imageUrls.length; i++) {
+    const img = new Image();
+    img.src = imageUrls[i];
+  }
+}
