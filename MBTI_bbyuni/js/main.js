@@ -238,32 +238,48 @@ function finish() {
 }
 
 function showAdvertisement() {
-  resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`;
-  qnaBackground.style.display = "none";
-  result.style.display = "block";
-  document.querySelector("#result-button-container").parentElement.style.display = "none";
-
-  let hasClicked = false;
+  resultBackgroundImage.style.backgroundImage = `url(img/result/광고보기.jpg)`; // 광고 배경으로 설정
+  qnaBackground.style.display = "none";  // 질문 배경 숨기기
+  result.style.display = "block"; // 결과 화면 보이기
   
-  resultBackgroundImage.addEventListener('click', async function(e) {
-    if (!hasClicked) {
-      e.preventDefault();
-      hasClicked = true;
+  document.querySelector("#result-button-container").parentElement.style.display = "none"; // 결과 버튼 숨기기
 
-      // 결과 이미지로 먼저 변경
-      resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;
-      document.getElementById("download").href = `img/result/${res}.jpg`;
-      document.querySelector("#result-button-container").parentElement.style.display = "block";
-      
-      // 상태 업데이트
-      sessionStorage.setItem('showAd', 'false');
-      localStorage.setItem('showAd', 'false');
+  // 광고 클릭 시 동작
+  resultBackgroundImage.addEventListener('click', function() {
+    // 결과 이미지로 변경 후 광고 페이지로 이동
+    resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;  // MBTI 결과 이미지로 설정
+    document.getElementById("download").href = `img/result/${res}.jpg`;  // 다운로드 링크 설정
+    document.querySelector("#result-button-container").parentElement.style.display = "block";  // 결과 버튼 보이기
 
-      // 약간의 지연 후 광고 링크 열기
-      setTimeout(() => {
-        window.open("https://link.coupang.com/a/bUgInP", "_blank");
-      }, 300);
-    }
+    // 세션/로컬스토리지 업데이트 (광고 안 보겠다고 설정)
+    sessionStorage.setItem('showAd', 'false');
+    localStorage.setItem('showAd', 'false');
+    
+    // 약간의 지연 후 광고 링크 열기
+    setTimeout(() => {
+      window.open("https://link.coupang.com/a/bUgInP", "_blank"); // 쿠팡 광고 페이지 열기
+    }, 300); // 300ms 후에 쿠팡 광고 링크 열리도록 설정
+  });
+
+  // 광고 건너뛰기 버튼 클릭 시의 동작 처리
+  const closeAdButton = document.querySelector("#close-ad");
+
+  closeAdButton.addEventListener('click', function() {
+    // 광고를 건너뛰고 결과 페이지로 바로 이동
+    resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;  // MBTI 결과 이미지로 설정
+    document.getElementById("download").href = `img/result/${res}.jpg`;  // 다운로드 링크 설정
+    document.querySelector("#result-button-container").parentElement.style.display = "block";  // 결과 버튼 보이기
+
+    // 세션/로컬스토리지 업데이트 (광고 안 보겠다고 설정)
+    sessionStorage.setItem('showAd', 'false');
+    localStorage.setItem('showAd', 'false');
+    
+    // 광고 숨기기
+    resultBackgroundImage.removeEventListener('click', showAdvertisement);  // 광고 클릭 이벤트 제거
+    resultBackgroundImage.style.backgroundImage = `url(img/result/${res}.jpg)`;  // 광고 없이 결과만 표시
+
+    // 쿠팡 링크 열리지 않도록 설정
+    window.open = function() {};  // 쿠팡 링크 차단
   });
 }
 
